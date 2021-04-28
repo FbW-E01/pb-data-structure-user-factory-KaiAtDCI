@@ -16,16 +16,6 @@ const userDataDump = [
   "E,cron,,System",
 ];
 
-
-function createUser(id = 'Unknown',
-                    fullName = 'Unknown',
-                    initials = 'Unknown',
-                    birthYear = 'Unknown',
-                    departments = 'Unknown') {
-  return { id, fullName, initials, birthYear, departments }
-}
-
-
 function createUserList(rawData) {
   const users = [];
   rawData.forEach(data => {
@@ -51,9 +41,7 @@ function extractInitials(arg) {
 }
 
 function extractDepartments(data) {
-
   const departments = [];
-
   data.forEach(dataRow => {
     const dataRowArray = dataRow.split(',');
     const lastElement = dataRowArray[dataRowArray.length-1];
