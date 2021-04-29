@@ -15,3 +15,43 @@ const userDataDump = [
   "D,Cheesedude51,1951,Users",
   "E,cron,,System",
 ];
+
+function createUserList(rawData) {
+  const users = [];
+  rawData.forEach(data => {
+    const userData = data.split(',');
+    const user = {
+      id: userData[0],
+      fullName: userData[1],
+      initials: extractInitials(userData[1]),
+      birthYear: userData[2],
+      departments: userData[3],
+    }
+    users.push(user);
+  });
+  return users;
+}
+
+function extractInitials(arg) {
+  const names = arg.split(" ");
+  if (names[0] === '') return "Unknown";
+  let initials = "";
+  names.forEach(name => initials += name[0].toUpperCase())
+  return initials;
+}
+
+function extractDepartments(data) {
+  const departments = [];
+  data.forEach(dataRow => {
+    const dataRowArray = dataRow.split(',');
+    const lastElement = dataRowArray[dataRowArray.length-1];
+    const assignmentEntry = lastElement.split('|');
+    assignmentEntry.forEach(department => {
+      if (departments.indexOf(department) === -1) departments.push(department);
+    })
+  })
+  return departments.sort();
+}
+
+console.log(createUserList(userDataDump));
+console.log(extractDepartments(userDataDump));
